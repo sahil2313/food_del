@@ -1,10 +1,10 @@
 import { createContext, useEffect, useState } from "react";
 import { food_list } from "../assets/assets";
 
-export const StoreCotext = createContext(null)
+export const StoreContext = createContext(null)
 
 
-const StoreCotextProvider = (props)=>{
+const StoreContextProvider = (props)=>{
 
     const [cartItems , setCartItems] = useState({})
 
@@ -34,11 +34,11 @@ const StoreCotextProvider = (props)=>{
     },[cartItems])
 
     return(
-        <StoreCotext.Provider value={contextValue}>
+        <StoreContext.Provider value={contextValue}>
             {props.children}
-        </StoreCotext.Provider>
+        </StoreContext.Provider>
     )
 }
 
 
-export   {StoreCotextProvider}
+export   {StoreContextProvider}
