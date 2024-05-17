@@ -9,9 +9,10 @@ const Footer = () => {
         <div  className={styles.footerContentLeft}>
             <img src={assets.logo} alt="" />
             <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+            <div className={styles.footerSocialIcons}>
             <img src={assets.facebook_icon} alt="" />
             <img src={assets.twitter_icon} alt="" />
-            <img src={assets.linkedin_icon} alt="" />
+            <img src={assets.linkedin_icon} alt="" /></div>
         </div>
         <div className={styles.footerContentCenter}>
             <h2>COMPANY</h2>
