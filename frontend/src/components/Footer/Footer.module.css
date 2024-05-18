@@ -51,3 +51,16 @@ cursor: pointer;
 .footer{
     margin-top: 100px;
 }
+
+@media (max-width : 750px) {
+    
+.footer .footerContent{
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+.footer .footerCopyright{
+    text-align: center;
+}
+
+}
