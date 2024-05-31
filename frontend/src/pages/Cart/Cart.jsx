@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
 import styles from "./Cart.module.css";
 import { StoreContext } from "../../context/StoreContext";
+import { useNavigate } from "react-router-dom";
 const Cart = () => {
-  const { cartItems, food_list, removeFromCart } = useContext(StoreContext);
-
+  const { cartItems, food_list, removeFromCart  , getTotalCartAmount} = useContext(StoreContext);
+  const navigate = useNavigate()
   return (
     <div className={styles.cart}>
       <div className={styles.cartItems}>
@@ -20,9 +21,9 @@ const Cart = () => {
         {food_list.map((item, index) => {
           if (cartItems[item._id]) {
             return (
-              <div>
+              <div  key={index}>
                 <div
-                  className={`${styles.cartItemsTitle} ${styles.cartItemsItem}`}
+                  className={`${styles.cartItemsTitle} ${styles.cartItemsItem}`}   
                 >
                   <img src={item.image} alt="" />
                   <p>{item.name}</p>
@@ -48,20 +49,20 @@ const Cart = () => {
           <div>
             <div className={styles.cartTotalDetails}>
               <p>Subtotal</p>
-              <p>{0}</p>
+              <p>${getTotalCartAmount()}</p>
             </div>
             <hr />
             <div className={styles.cartTotalDetails}>
               <p>Delivery Fee</p>
-              <p>{2}</p>
+              <p>${getTotalCartAmount() > 0 ? 2 : 0}</p>
             </div>
             <hr />
             <div className={styles.cartTotalDetails}>
               <b>Total</b>
-              <b>{0}</b>
+              <b>${getTotalCartAmount() > 0 ? getTotalCartAmount() + 2 : getTotalCartAmount()}</b>
             </div>
           </div>
-          <button>PROCEED TO CHECKOUT</button>
+          <button onClick={()=>navigate("/order")}>PROCEED TO CHECKOUT</button>
         </div>
         <div className={styles.cartPromoCode}>
           <div>
