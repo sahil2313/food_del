@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import styles from "./Add.module.css"
 import { assets } from '../../assets/assets'
 import axios from "axios"
+import { toast } from 'react-toastify'
 const Add = () => {
-    const url = "http://localhost/4000"
+    const url = "http://localhost:4000"
     const [image , setImage] = useState(false)
     const [data , setData] = useState({
         name : "",
@@ -17,10 +18,6 @@ const Add = () => {
         setData(prevData =>({...prevData , [name] : value}))
     }
 
-    useEffect(()=>{
-        console.log(image)
-    },[image])
-
     const onSubmitHandler = async (e) => {
         e.preventDefault();
 
@@ -32,7 +29,7 @@ const Add = () => {
         formData.append('image', image);
 
         try {
-            const res = await axios.post(`${url}/api/food/add`, formData );
+            const res = await axios.post(`${url}/api/food/add`,formData );
             if (res.data.success) {
                 setData({
                     name: "",
@@ -40,12 +37,24 @@ const Add = () => {
                     price: "",
                     category: "Salad"
                 });
-                setImage(null);
-                console.log("Success");
+                setImage(false);
+                toast.success(res.data.message)
             } else {
+                // Handle specific error messages
+                if (res.data.message === "Image not uploaded") {
+                    toast.error("Please upload an image before submitting.");
+                } else {
+                    toast.error(res.data.message);
+                }
                 console.log("Fail");
             }
         } catch (error) {
+            // Check if the error response exists and has a message
+            if (error.response && error.response.data && error.response.data.message) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error("An unexpected error occurred. Please try again.");
+            }
             console.error("An error occurred:", error);
         }
     };

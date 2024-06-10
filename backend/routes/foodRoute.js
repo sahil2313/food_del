@@ -1,5 +1,6 @@
 const express = require('express')
 const {addFood , listFood , removeFood} = require("../controllers/foodController")
+const checkFileField = require("../middleware/handleImageUploader")
 const multer = require("multer")
 
 const foodRouter = express.Router()
@@ -16,7 +17,7 @@ const storage = multer.diskStorage({
   
 const upload = multer({storage : storage})
 
-foodRouter.post("/add" , upload.single("image") , addFood)
+foodRouter.post("/add", upload.single("image") , checkFileField , addFood)
 
 foodRouter.get("/list" , listFood)
 

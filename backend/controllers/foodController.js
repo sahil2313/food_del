@@ -4,6 +4,7 @@ const fs = require('fs')
 //add food item
 
 const addFood = async(req , res)=>{
+    console.log(req.body)
     const image_filename = req.file.filename
     console.log(image_filename)
     const food = new foodModel({
@@ -12,7 +13,7 @@ const addFood = async(req , res)=>{
     })
     try{
        await food.save();
-       res.json({success : true , mesage : "Food Added"})
+       res.json({success : true , message : "Food Added"})
     }catch(e){
         console.log(e)
         res.json({sucess : false , message : e})
